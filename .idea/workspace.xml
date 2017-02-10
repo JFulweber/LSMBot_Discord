@@ -85,6 +85,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="config.properties" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="NameChangeCommand.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/commands/CustomRole/NameChangeCommand.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -101,11 +111,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RainbowCommand.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RainbowCommand.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/commands/RainbowCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="33" column="45" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
+            <state relative-caret-position="431">
+              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#540#541#0" expanded="true" />
@@ -115,16 +125,6 @@
                 <element signature="e#1532#1533#0" expanded="true" />
                 <element signature="e#1559#1560#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="25" column="34" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -175,7 +175,6 @@
         <option value="$PROJECT_DIR$/src/main/java/utility/Config.java" />
         <option value="$PROJECT_DIR$/src/main/java/utility/CommandContainer.java" />
         <option value="$PROJECT_DIR$/src/main/java/utility/Configuration.java" />
-        <option value="$PROJECT_DIR$/config.properties" />
         <option value="$PROJECT_DIR$/src/main/java/CustomRole.java" />
         <option value="$PROJECT_DIR$/src/main/java/utility/CommandParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/PingCommand.java" />
@@ -190,6 +189,7 @@
         <option value="$PROJECT_DIR$/src/main/java/utility/CommandHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/utility/Command.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/RainbowCommand.java" />
+        <option value="$PROJECT_DIR$/config.properties" />
       </list>
     </option>
   </component>
@@ -833,14 +833,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_74/src.zip!/java/util/function/Consumer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
@@ -970,8 +962,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/commands/RainbowCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="33" column="45" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
+        <state relative-caret-position="431">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#540#541#0" expanded="true" />
@@ -981,6 +973,14 @@
             <element signature="e#1532#1533#0" expanded="true" />
             <element signature="e#1559#1560#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
