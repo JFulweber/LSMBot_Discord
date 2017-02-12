@@ -24,6 +24,8 @@ public class CommandHandler {
         commands.put("name", new NameChangeCommand());
         commands.put("rainbow", new RainbowCommand());
 
-        if(commands.containsKey(info.getInvoke())) commands.get(info.getInvoke()).action(info);
+        if(commands.containsKey(info.getInvoke()))
+            if(commands.get(info.getInvoke()).called(info))
+                commands.get(info.getInvoke()).action(info);
     }
 }

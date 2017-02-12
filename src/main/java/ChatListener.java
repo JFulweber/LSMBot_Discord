@@ -3,6 +3,7 @@ import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.core.events.user.UserGameUpdateEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 import utility.CommandHandler;
 import utility.CommandParser;
@@ -26,6 +27,9 @@ public class ChatListener implements EventListener{
                 builder.setDescription("Have an admin do this!");
                 ((PrivateMessageReceivedEvent) event).getChannel().sendMessage(builder.build()).queue();
             }
+        }
+        if(event instanceof UserGameUpdateEvent){
+            VoiceChannelManager.manageChangeEvent(event);
         }
     }
 }

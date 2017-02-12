@@ -14,8 +14,8 @@ import java.awt.*;
  * Created by Adair on 02/07/17.
  */
 public class ColorChangeCommand implements Command{
-    public boolean called(CommandContainer container) {
-        return false;
+    public boolean called(CommandContainer info) {
+        return info.getArgs().length==1 && info.getArgs()[0].contains("#") && info.getArgs()[0].length()==7;
     }
 
     public void action(CommandContainer info) {
