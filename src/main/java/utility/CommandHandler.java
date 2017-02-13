@@ -4,6 +4,7 @@ import commands.CustomRole.ColorChangeCommand;
 import commands.CustomRole.NameChangeCommand;
 import commands.PingCommand;
 import commands.RainbowCommand;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.HashMap;
 
@@ -27,5 +28,11 @@ public class CommandHandler {
         if(commands.containsKey(info.getInvoke()))
             if(commands.get(info.getInvoke()).called(info))
                 commands.get(info.getInvoke()).action(info);
+            else{
+                ((GuildMessageReceivedEvent) info.getEvent()).getMessage().getTextChannel().sendMessage(commands.get(info.getInvoke()).help());
+            }
+        else{
+            ((GuildMessageReceivedEvent) info.getEvent()).getMessage().getTextChannel().sendMessage("Unrecognized command!");
+        }
     }
 }

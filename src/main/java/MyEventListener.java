@@ -12,7 +12,7 @@ import utility.Configuration;
 /**
  * Created by Adair on 02/06/17.
  */
-public class ChatListener implements EventListener{
+public class MyEventListener implements EventListener{
     public void onEvent(Event event) {
         if(event instanceof GuildMessageReceivedEvent){
             if (((GuildMessageReceivedEvent) event).getMessage().getContent().substring(0,Configuration.getPrefix().length()).equals(Configuration.getPrefix())){

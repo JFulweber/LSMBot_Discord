@@ -12,7 +12,7 @@ public class Main {
         if(Configuration.setup()) {
             try {
                 jda = new JDABuilder(AccountType.BOT).setToken(Configuration.getToken()).buildAsync();
-                jda.addEventListener(new ChatListener());
+                jda.addEventListener(new MyEventListener());
             } catch (Exception e) {
                 e.printStackTrace();
             }
