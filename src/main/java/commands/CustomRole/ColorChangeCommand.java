@@ -30,7 +30,7 @@ public class ColorChangeCommand implements Command{
 
 
     public String help() {
-        return "USAGE - "+ Configuration.getPrefix()+"color <HEX ID COLOR>";
+        return "USAGE: "+ Configuration.getPrefix()+"color <HEX ID COLOR>";
     }
 
     public void executed(boolean success, MessageReceivedEvent event) {

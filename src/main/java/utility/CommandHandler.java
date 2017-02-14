@@ -29,10 +29,10 @@ public class CommandHandler {
             if(commands.get(info.getInvoke()).called(info))
                 commands.get(info.getInvoke()).action(info);
             else{
-                ((GuildMessageReceivedEvent) info.getEvent()).getMessage().getTextChannel().sendMessage(commands.get(info.getInvoke()).help());
+                ((GuildMessageReceivedEvent) info.getEvent()).getMessage().getTextChannel().sendMessage(commands.get(info.getInvoke()).help()).queue();
             }
         else{
-            ((GuildMessageReceivedEvent) info.getEvent()).getMessage().getTextChannel().sendMessage("Unrecognized command!");
+            ((GuildMessageReceivedEvent) info.getEvent()).getMessage().getTextChannel().sendMessage("Unrecognized command!").queue();
         }
     }
 }

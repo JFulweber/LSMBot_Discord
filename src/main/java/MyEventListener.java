@@ -1,4 +1,5 @@
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
@@ -26,6 +27,14 @@ public class MyEventListener implements EventListener{
                 builder.setTitle("You can invite me with this link!", "https://discordapp.com/oauth2/authorize?client_id=221857436594733056&scope=bot&permissions=0x00000008");
                 builder.setDescription("Have an admin do this!");
                 ((PrivateMessageReceivedEvent) event).getChannel().sendMessage(builder.build()).queue();
+            }
+            else if(((PrivateMessageReceivedEvent) event).getMessage().getContent().toLowerCase().contains("setgame")){
+                String fullName = "";
+                String original = ((PrivateMessageReceivedEvent) event).getMessage().getContent();
+                for(String part:  original.split(" ")){
+                    fullName += (!part.toLowerCase().equals("setgame"))? part+" ":"";
+                }
+                Main.jda.getPresence().setGame(Game.of(fullName.trim()));
             }
         }
         if(event instanceof UserGameUpdateEvent){
