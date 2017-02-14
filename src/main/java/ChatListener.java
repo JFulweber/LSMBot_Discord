@@ -31,7 +31,7 @@ public class ChatListener implements EventListener{
             }
             if(((PrivateMessageReceivedEvent) event).getMessage().getContent().toLowerCase().contains("setgame")){
                 String msg = ((PrivateMessageReceivedEvent) event).getMessage().getContent();
-                msg = msg.substring(6);
+                msg = msg.substring(7);
                 Main.jda.getPresence().setGame(of(msg));
                 System.out.println(event.getJDA().getGuilds().get(1).getName());
                 UserGameUpdateEvent createdevent = new UserGameUpdateEvent(Main.jda,(long) 1,Main.jda.getSelfUser(),event.getJDA().getGuilds().get(1),null);
