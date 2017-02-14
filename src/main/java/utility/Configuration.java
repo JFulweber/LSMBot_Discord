@@ -13,6 +13,10 @@ public class Configuration {
     static String token;
     static String prefix;
     static String customRolePrefix;
+    static String generatedChannelPrefix;
+
+
+
     static Properties prop = new Properties();
     static OutputStream outputStream = null;
 
@@ -25,6 +29,7 @@ public class Configuration {
                 prop.setProperty("token", "");
                 prop.setProperty("prefix", "-");
                 prop.setProperty("customRolePrefix","~");
+                prop.setProperty("generatedChannelPrefix","GEN:");
                 prop.store(outputStream, null);
                 return false;
             }catch(Exception e){
@@ -42,6 +47,7 @@ public class Configuration {
 
                 prefix = (String) prop.get("prefix");
                 customRolePrefix = (String) prop.get("customRolePrefix");
+                generatedChannelPrefix = (String) prop.get("generatedChannelPrefix");
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -49,6 +55,8 @@ public class Configuration {
         }
         return false;
     }
+
+    public static String getGeneratedChannelPrefix() {return generatedChannelPrefix; }
 
     public static String getCustomRolePrefix() { return customRolePrefix; }
 

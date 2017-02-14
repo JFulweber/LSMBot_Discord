@@ -9,6 +9,8 @@ import utility.CommandHandler;
 import utility.CommandParser;
 import utility.Configuration;
 
+import static net.dv8tion.jda.core.entities.Game.of;
+
 /**
  * Created by Adair on 02/06/17.
  */
@@ -26,6 +28,14 @@ public class ChatListener implements EventListener{
                 builder.setTitle("You can invite me with this link!", "https://discordapp.com/oauth2/authorize?client_id=221857436594733056&scope=bot&permissions=0x00000008");
                 builder.setDescription("Have an admin do this!");
                 ((PrivateMessageReceivedEvent) event).getChannel().sendMessage(builder.build()).queue();
+            }
+            if(((PrivateMessageReceivedEvent) event).getMessage().getContent().toLowerCase().contains("setgame")){
+                String msg = ((PrivateMessageReceivedEvent) event).getMessage().getContent();
+                msg = msg.substring(6);
+                Main.jda.getPresence().setGame(of(msg));
+                System.out.println(event.getJDA().getGuilds().get(1).getName());
+                UserGameUpdateEvent createdevent = new UserGameUpdateEvent(Main.jda,(long) 1,Main.jda.getSelfUser(),event.getJDA().getGuilds().get(1),null);
+                VoiceChannelManager.manageChangeEvent(createdevent);
             }
         }
         if(event instanceof UserGameUpdateEvent){
