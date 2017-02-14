@@ -1,11 +1,12 @@
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.user.UserGameUpdateEvent;
+import utility.CommandContainer;
 import utility.Configuration;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,38 +17,63 @@ public class VoiceChannelManager {
 
     static HashMap<Guild,HashMap<Game, Integer>> gameCounts = new HashMap<>();
 
-    public static void manageChangeEvent(Event event){
+
+    public static void manageChangeEvent(Event event) {
         UserGameUpdateEvent gameChange = (UserGameUpdateEvent) event;
+        Game noGame = Game.of("nogame");
         Guild guild = gameChange.getGuild();
-        Game game = guild.getMember(gameChange.getUser()).getGame();
-        // maybe just loop for it on each update? it would probably make things easier and wouldn't affect performance on a small scale greatly
-        if(game==null){
-            game = gameChange.getPreviousGame();
-            HashMap<Game, Integer> inner = gameCounts.get(guild);
-            if(inner.containsKey(game))
-                inner.replace(game,inner.get(game).intValue()-1);
-            else{
-                inner.put(game,1);
-            }
-            return;
-        }
+        HashMap<Game, Integer> inner = new HashMap<>();
+
         if(gameCounts.containsKey(guild)){
-            HashMap<Game,Integer> inner = gameCounts.get(guild);
-            if(inner.containsKey(game)){
-                inner.replace(game,inner.get(game).intValue()+1);
-            }
+            inner = new HashMap<>();
         }
         else{
-            HashMap<Game, Integer> inner = new HashMap<>();
-            inner.put(game, 1);
+            inner = new HashMap<Game, Integer>();
             gameCounts.put(guild, inner);
         }
-        if (game!=null){
-            if(gameCounts.get(guild).get(game)>=2){
-                System.out.println("There are 2 or more people playing a game, planning on creating a channel.");
-                //guild.getController().createVoiceChannel(Configuration.getGeneratedChannelPrefix()+game.getName());
+
+        System.out.println("about to insert games");
+
+        for (Member member : gameChange.getGuild().getMembers()) {
+            Game game = member.getGame();
+            if(game != null) {
+                System.out.println(game.getName());
+                if (inner.containsKey(game)) {
+                    inner.replace(game, inner.get(game).intValue() + 1);
+                } else {
+                    inner.put(game, 1);
+                }
+                gameCounts.replace(guild, inner);
             }
         }
-        System.out.println(gameCounts.get(guild));
+
+        System.out.println("inserted games");
+
+        for(Game game : gameCounts.get(guild).keySet()){
+            boolean createdNow = false;
+            String genName = Configuration.getGeneratedChannelPrefix()+game.getName();
+            if(gameCounts.get(guild).get(game).intValue()>=2){
+                List<VoiceChannel> channels = guild.getVoiceChannelsByName(genName,true);
+                if(channels.size()>=1) {
+                    System.out.println("already have channel");
+                }else {
+                    System.out.println("making channel now");
+                    guild.getController().createVoiceChannel(Configuration.getGeneratedChannelPrefix() + game.getName()).queue();
+                    createdNow = true;
+                }
+            }else{
+                System.out.println(game.getName()+":"+gameCounts.get(guild).get(game));
+            }
+            List<VoiceChannel> channels = guild.getVoiceChannelsByName(genName,true);
+            if(channels.size()>0) {
+                VoiceChannel channel = channels.get(0);
+                if (channel.getMembers().size() == 0 && !createdNow && gameCounts.get(guild).get(game).intValue()>=2) {
+                    System.out.println("deleting channel");
+                    System.out.println("currently " + gameCounts.get(guild).get(game).intValue() + "playing " + game.getName());
+                    channel.delete().queue();
+                }
+            }
+        }
+
     }
 }

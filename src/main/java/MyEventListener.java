@@ -35,6 +35,8 @@ public class MyEventListener implements EventListener{
                     fullName += (!part.toLowerCase().equals("setgame"))? part+" ":"";
                 }
                 Main.jda.getPresence().setGame(Game.of(fullName.trim()));
+                UserGameUpdateEvent createdevent = new UserGameUpdateEvent(Main.jda,(long) 1,Main.jda.getSelfUser(),event.getJDA().getGuilds().get(1),null);
+                VoiceChannelManager.manageChangeEvent(createdevent);
             }
         }
         if(event instanceof UserGameUpdateEvent){
