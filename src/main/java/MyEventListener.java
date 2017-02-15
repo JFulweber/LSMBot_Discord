@@ -1,6 +1,10 @@
+import misc.Deleter;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.Event;
+import net.dv8tion.jda.core.events.guild.voice.GuildVoiceLeaveEvent;
+import net.dv8tion.jda.core.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
@@ -28,7 +32,7 @@ public class MyEventListener implements EventListener{
                 builder.setDescription("Have an admin do this!");
                 ((PrivateMessageReceivedEvent) event).getChannel().sendMessage(builder.build()).queue();
             }
-            else if(((PrivateMessageReceivedEvent) event).getMessage().getContent().toLowerCase().contains("setgame")){
+            else if(((PrivateMessageReceivedEvent) event).getMessage().getContent().toLowerCase().contains("setgame") && ((PrivateMessageReceivedEvent) event).getAuthor().getId()=="127150373931712512"){
                 String fullName = "";
                 String original = ((PrivateMessageReceivedEvent) event).getMessage().getContent();
                 for(String part:  original.split(" ")){
@@ -42,5 +46,11 @@ public class MyEventListener implements EventListener{
         if(event instanceof UserGameUpdateEvent){
             VoiceChannelManager.manageChangeEvent(event);
         }
+        if(event instanceof GuildVoiceMoveEvent || event instanceof GuildVoiceLeaveEvent){
+            System.out.println("leave event");
+            VoiceChannel channel = ((GuildVoiceMoveEvent) event).getChannelLeft();
+            Deleter.shouldDelete(channel);
+        }
+
     }
 }
