@@ -14,6 +14,8 @@ import utility.CommandHandler;
 import utility.CommandParser;
 import utility.Configuration;
 
+import static net.dv8tion.jda.core.entities.Game.of;
+
 /**
  * Created by Adair on 02/06/17.
  */
@@ -32,6 +34,7 @@ public class MyEventListener implements EventListener{
                 builder.setDescription("Have an admin do this!");
                 ((PrivateMessageReceivedEvent) event).getChannel().sendMessage(builder.build()).queue();
             }
+<<<<<<< HEAD:src/main/java/MyEventListener.java
             else if(((PrivateMessageReceivedEvent) event).getMessage().getContent().toLowerCase().contains("setgame") && ((PrivateMessageReceivedEvent) event).getAuthor().getId()=="127150373931712512"){
                 String fullName = "";
                 String original = ((PrivateMessageReceivedEvent) event).getMessage().getContent();
@@ -39,6 +42,13 @@ public class MyEventListener implements EventListener{
                     fullName += (!part.toLowerCase().equals("setgame"))? part+" ":"";
                 }
                 Main.jda.getPresence().setGame(Game.of(fullName.trim()));
+=======
+            if(((PrivateMessageReceivedEvent) event).getMessage().getContent().toLowerCase().contains("setgame")){
+                String msg = ((PrivateMessageReceivedEvent) event).getMessage().getContent();
+                msg = msg.substring(7);
+                Main.jda.getPresence().setGame(of(msg));
+                System.out.println(event.getJDA().getGuilds().get(1).getName());
+>>>>>>> origin/master:src/main/java/ChatListener.java
                 UserGameUpdateEvent createdevent = new UserGameUpdateEvent(Main.jda,(long) 1,Main.jda.getSelfUser(),event.getJDA().getGuilds().get(1),null);
                 VoiceChannelManager.manageChangeEvent(createdevent);
             }
