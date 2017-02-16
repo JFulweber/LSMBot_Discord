@@ -1,5 +1,6 @@
 package commands;
 
+import music.ConnectionListenerImpl;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.VoiceChannel;
@@ -59,6 +60,10 @@ public class MusicCommand implements Command{
             else if(subCommand.equals("l")){
                 System.out.println("leaving");
                 manager.closeAudioConnection();
+                manager.openAudioConnection(guild.getAfkChannel());
+                manager.closeAudioConnection();
+                System.out.println(manager.getConnectionStatus());
+                manager.setConnectionListener(new ConnectionListenerImpl());
             }
         }
         else{
