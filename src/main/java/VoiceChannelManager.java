@@ -20,10 +20,7 @@ public class VoiceChannelManager {
     static HashMap<Guild,HashMap<Game, Integer>> gameCounts = new HashMap<>();
     static HashMap<Game, Integer> hasBeenPlayed = new HashMap<>();
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
     public static void manageChangeEvent(Event event) {
         UserGameUpdateEvent gameChange = (UserGameUpdateEvent) event;
         Game noGame = Game.of("nogame");
@@ -34,18 +31,16 @@ public class VoiceChannelManager {
             inner = new HashMap<>();
         }
         else{
-<<<<<<< HEAD
+
             inner = new HashMap<>();
             gameCounts.put(guild, inner);
         }
         for(Game game: hasBeenPlayed.keySet()){
             inner.put(game, 0);
         }
-=======
             inner = new HashMap<Game, Integer>();
             gameCounts.put(guild, inner);
-        }
->>>>>>> origin/master
+
 
         System.out.println("about to insert games");
 
@@ -56,10 +51,7 @@ public class VoiceChannelManager {
                 if (inner.containsKey(game)) {
                     inner.replace(game, inner.get(game).intValue() + 1);
                 } else {
-<<<<<<< HEAD
                     hasBeenPlayed.put(game,0);
-=======
->>>>>>> origin/master
                     inner.put(game, 1);
                 }
                 gameCounts.replace(guild, inner);
@@ -71,7 +63,6 @@ public class VoiceChannelManager {
         for(Game game : gameCounts.get(guild).keySet()){
             boolean createdNow = false;
             String genName = Configuration.getGeneratedChannelPrefix()+game.getName();
-<<<<<<< HEAD
             System.out.println(genName);
             if(gameCounts.get(guild).get(game).intValue()>=2){
                 List<VoiceChannel> channels = guild.getVoiceChannelsByName(genName,true);
@@ -90,22 +81,9 @@ public class VoiceChannelManager {
             if(channels.size()>0) {
                 for (int i = 0; i < channels.size(); i++) {
                     VoiceChannel channel = channels.get(i);
-                    if (!(gameCounts.get(guild).get(game).intValue()>=2) && !createdNow) {
+                    if (!(gameCounts.get(guild).get(game).intValue() >= 2) && !createdNow) {
                         Deleter.addToDeleteList(channel);
                     }
-=======
-            if(gameCounts.get(guild).get(game).intValue()>=2 && !(guild.getVoiceChannelsByName(genName, true).size()>0)){
-                guild.getController().createVoiceChannel(Configuration.getGeneratedChannelPrefix()+game.getName()).queue();
-                createdNow = true;
-            }
-            List<VoiceChannel> channels = guild.getVoiceChannelsByName(genName,true);
-            if(channels.size()>0) {
-                VoiceChannel channel = channels.get(0);
-                if (channel.getMembers().size() == 0 && !createdNow && gameCounts.get(guild).get(game).intValue()>=2) {
-                    System.out.println("deleting channel");
-                    System.out.println("currently " + gameCounts.get(guild).get(game).intValue() + "playing " + game.getName());
-                    channel.delete().queue();
->>>>>>> origin/master
                 }
             }
         }

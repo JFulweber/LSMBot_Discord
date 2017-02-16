@@ -30,20 +30,35 @@ public class MusicCommand implements Command{
     @Override
     public void action(CommandContainer info) {
 
-        String[] args = null;
+        String[] args = new String[info.getArgs().length-1];
         String subCommand = info.getArgs()[0];
-        args = (String[]) Arrays.asList(info.getArgs()).subList(1,info.getArgs().length).toArray();
+        for(int i = 1; i<args.length;i++){
+            args[i] = info.getArgs()[i];
+        }
         ArrayList<String> subCommands = new ArrayList<>();
-        subCommands.add("p"); subCommands.add("s"); subCommands.add("c");
+        subCommands.add("p"); subCommands.add("s"); subCommands.add("c"); subCommands.add("l");
         Guild guild = ((GuildMessageReceivedEvent) info.getEvent()).getGuild();
+        Member member = ((GuildMessageReceivedEvent) info.getEvent()).getMember();
+
+        AudioManager manager;
+        if(!audioManagerHashMap.containsKey(guild)){
+            audioManagerHashMap.put(guild, new AudioManagerImpl(guild));
+        }
+        manager = audioManagerHashMap.get(guild);
 
         if(subCommands.contains(subCommand)){
             if(subCommand.equals("p")){
-                AudioManager manager;
-                if(!audioManagerHashMap.containsKey(guild)){
-                    audioManagerHashMap.put(guild, new AudioManagerImpl(guild));
+                System.out.println("trying to join");
+                if(findVoiceChannel(member)!=null){
+                    manager.openAudioConnection(findVoiceChannel(member));
                 }
-                manager = audioManagerHashMap.get(guild);
+                else{
+                    ((GuildMessageReceivedEvent) info.getEvent()).getChannel().sendMessage("You need to be in a voice channel for me to join!");
+                }
+            }
+            else if(subCommand.equals("l")){
+                System.out.println("leaving");
+                manager.closeAudioConnection();
             }
         }
         else{
@@ -74,4 +89,5 @@ public class MusicCommand implements Command{
         }
         return null;
     }
+
 }
