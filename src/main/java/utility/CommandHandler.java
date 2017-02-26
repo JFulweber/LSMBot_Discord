@@ -2,6 +2,7 @@ package utility;
 
 import commands.CustomRole.ColorChangeCommand;
 import commands.CustomRole.NameChangeCommand;
+import commands.JailCommand;
 import commands.MusicCommand;
 import commands.PingCommand;
 import commands.RainbowCommand;
@@ -27,6 +28,8 @@ public class CommandHandler {
         commands.put("rainbow", new RainbowCommand());
         commands.put("m", new MusicCommand());
         commands.put("p", new MusicCommand());
+        commands.put("j", new JailCommand());
+        commands.put("jail", new JailCommand());
 
         if(commands.containsKey(info.getInvoke()))
             if(commands.get(info.getInvoke()).called(info))

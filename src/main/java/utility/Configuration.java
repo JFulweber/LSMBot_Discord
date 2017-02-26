@@ -13,6 +13,7 @@ public class Configuration {
     static String token;
     static String prefix;
     static String customRolePrefix;
+    static String jailRoleName;
     static String generatedChannelPrefix;
 
 
@@ -24,10 +25,11 @@ public class Configuration {
         if(!new File("config.properties").exists()){
             try{
                 outputStream = new FileOutputStream("config.properties");
-                prop.setProperty("token", "");
+                prop.setProperty("token", ""); //MjIxODU3NDM2NTk0NzMzMDU2.C3_PEw.HgByFJW2iPVNV_M3nVLPQrhtFiI
                 prop.setProperty("prefix", "-");
                 prop.setProperty("customRolePrefix","~");
                 prop.setProperty("generatedChannelPrefix","A:");
+                prop.setProperty("jailRoleName","gay jail");
                 prop.store(outputStream, null);
                 return false;
             }catch(Exception e){
@@ -45,6 +47,7 @@ public class Configuration {
 
                 prefix = (String) prop.get("prefix");
                 customRolePrefix = (String) prop.get("customRolePrefix");
+                jailRoleName = (String) prop.get("jailRoleName");
                 generatedChannelPrefix = (String) prop.get("generatedChannelPrefix");
                 return true;
             } catch (Exception e) {
@@ -66,4 +69,9 @@ public class Configuration {
     public static String getPrefix(){
         return prefix;
     }
+
+    public static String getJailRoleName() {
+        return jailRoleName;
+    }
+
 }
