@@ -9,11 +9,12 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import utility.Command;
 import utility.CommandContainer;
+import utility.GuildContainer;
+import utility.GuildHashMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static misc.MemberHashMap.getMemberHashMap;
 
 /**
  * Created by Owner on 2/23/2017.
@@ -30,11 +31,12 @@ public class JailCommand implements Command{
         List<User> users = ((GuildMessageReceivedEvent) info.getEvent()).getMessage().getMentionedUsers();
         List<Member> members = new ArrayList<>();
         Guild guild = ((GuildMessageReceivedEvent) info.getEvent()).getGuild();
+        GuildContainer container = GuildHashMap.get(guild);
         Role role = CustomRole.jailRole(info);
         System.out.println(role.getName());
         for(User user:users){
-            System.out.println("adding jail to " + getMemberHashMap(guild).get(user).getEffectiveName());
-            guild.getController().addRolesToMember(getMemberHashMap(guild).get(user),role).queue();
+            System.out.println("adding jail to " + container.getMemberHashMap().get(user).getEffectiveName());
+            guild.getController().addRolesToMember(container.getMemberHashMap().get(user),role).queue();
         }
     }
 

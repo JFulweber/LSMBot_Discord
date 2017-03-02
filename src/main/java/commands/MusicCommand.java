@@ -12,6 +12,7 @@ import net.dv8tion.jda.core.managers.AudioManager;
 import net.dv8tion.jda.core.managers.impl.AudioManagerImpl;
 import utility.Command;
 import utility.CommandContainer;
+import utility.GuildHashMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,29 +44,22 @@ public class MusicCommand implements Command{
         Guild guild = ((GuildMessageReceivedEvent) info.getEvent()).getGuild();
         Member member = ((GuildMessageReceivedEvent) info.getEvent()).getMember();
 
-        AudioManager manager;
-        if(!audioManagerHashMap.containsKey(guild)){
-            audioManagerHashMap.put(guild, new AudioManagerImpl(guild));
-        }
-        manager = audioManagerHashMap.get(guild);
+        AudioManager audioManager = GuildHashMap.get(guild).getAudioManager();
 
         if(subCommands.contains(subCommand)){
-            if(subCommand.equals("p")){
+            if(subCommand.equals("j")){
                 System.out.println("trying to join");
-                if(findVoiceChannel(member)!=null){
-                    manager.openAudioConnection(findVoiceChannel(member));
+                if(findMemberVoiceChannel(member)!=null && info.getArgs().length==0){
+                    audioManager.openAudioConnection(findMemberVoiceChannel(member));
                 }
                 else{
-                    ((GuildMessageReceivedEvent) info.getEvent()).getChannel().sendMessage("You need to be in a voice channel for me to join!");
+                    //((GuildMessageReceivedEvent) info.getEvent()).getChannel().sendMessage("You need to be in a voice channel for me to join!");
+                    audioManager.openAudioConnection(GuildHashMap.get(guild).findClosestChannel(info.getArgs()[0]));
                 }
             }
             else if(subCommand.equals("l")){
                 System.out.println("leaving");
-                manager.closeAudioConnection();
-                manager.openAudioConnection(guild.getAfkChannel());
-                manager.closeAudioConnection();
-                System.out.println(manager.getConnectionStatus());
-                manager.setConnectionListener(new ConnectionListenerImpl());
+                audioManager.closeAudioConnection();
             }
         }
         else{
@@ -89,7 +83,7 @@ public class MusicCommand implements Command{
 
     }
 
-    public VoiceChannel findVoiceChannel(Member member){
+    public VoiceChannel findMemberVoiceChannel(Member member){
         List<VoiceChannel> channels = member.getGuild().getVoiceChannels();
         for(VoiceChannel channel: channels){
             if(channel.getMembers().contains(member)) return channel;
