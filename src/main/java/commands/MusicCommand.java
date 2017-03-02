@@ -1,6 +1,8 @@
 package commands;
 
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import music.ConnectionListenerImpl;
+import music.GuildMusicManager;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.VoiceChannel;
@@ -93,6 +95,10 @@ public class MusicCommand implements Command{
             if(channel.getMembers().contains(member)) return channel;
         }
         return null;
+    }
+
+    public void play(Guild guild, GuildMusicManager manager, AudioTrack track){
+
     }
 
 }
