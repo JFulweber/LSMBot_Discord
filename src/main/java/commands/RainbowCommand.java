@@ -38,7 +38,7 @@ public class RainbowCommand implements Command  {
                     sb.setLength(7);
                     ColorChangeCommand.changeColor(role,sb.toString());
                     try {
-                        this.sleep(50);
+                        sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

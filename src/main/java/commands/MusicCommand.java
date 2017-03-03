@@ -24,7 +24,6 @@ import java.util.List;
  */
 public class MusicCommand implements Command{
 
-    static HashMap<Guild, AudioManager> audioManagerHashMap = new HashMap<>();
 
     @Override
     public boolean called(CommandContainer info) {
@@ -36,8 +35,10 @@ public class MusicCommand implements Command{
 
         String[] args = new String[info.getArgs().length-1];
         String subCommand = info.getArgs()[0];
+        String sArgs = "";
         for(int i = 1; i<args.length;i++){
             args[i] = info.getArgs()[i];
+            sArgs += info.getArgs()[i];
         }
         ArrayList<String> subCommands = new ArrayList<>();
         subCommands.add("p"); subCommands.add("s"); subCommands.add("c"); subCommands.add("l");
@@ -54,7 +55,7 @@ public class MusicCommand implements Command{
                 }
                 else{
                     //((GuildMessageReceivedEvent) info.getEvent()).getChannel().sendMessage("You need to be in a voice channel for me to join!");
-                    audioManager.openAudioConnection(GuildHashMap.get(guild).findClosestChannel(info.getArgs()[0]));
+                    audioManager.openAudioConnection(GuildHashMap.get(guild).findClosestChannel(sArgs));
                 }
             }
             else if(subCommand.equals("l")){

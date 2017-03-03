@@ -1,8 +1,10 @@
 import misc.Deleter;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.Event;
+import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.core.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -13,6 +15,8 @@ import net.dv8tion.jda.core.hooks.EventListener;
 import utility.CommandHandler;
 import utility.CommandParser;
 import utility.Configuration;
+
+import java.util.List;
 
 import static net.dv8tion.jda.core.entities.Game.of;
 
@@ -57,7 +61,6 @@ public class MyEventListener implements EventListener {
                 VoiceChannel channel = ((GuildVoiceMoveEvent) event).getChannelLeft();
                 Deleter.shouldDelete(channel);
             }
-
         }
     }
 }
